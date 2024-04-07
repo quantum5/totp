@@ -2,6 +2,7 @@ import React from 'react';
 import {HashAlgorithms, HOTP, HOTPOptions} from '@otplib/core';
 import {createDigest} from '@otplib/plugin-crypto-js';
 import classNames from 'classnames';
+import CopyButton from './CopyButton.tsx';
 
 const ALGORITHMS = {
   sha1: HashAlgorithms.SHA1,
@@ -21,6 +22,7 @@ function OTPCode({code, delta}: { code: string; delta: number }) {
     'totp-near-last': delta === 5,
   })}>
     {code}
+    <CopyButton text={code}/>
   </div>;
 }
 

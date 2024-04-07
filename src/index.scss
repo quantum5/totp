@@ -17,6 +17,7 @@
 @import 'bootstrap/scss/_type.scss';
 @import 'bootstrap/scss/_helpers.scss';
 @import 'bootstrap/scss/_transitions.scss';
+@import 'bootstrap/scss/_popover.scss';
 
 nav {
   background-color: $body-tertiary-bg;
@@ -81,6 +82,23 @@ nav {
 
   &.totp-current {
     font-size: 2em;
+  }
+}
+
+.copy-button {
+  margin-left: 0.25em;
+
+  a {
+    cursor: pointer;
+  }
+
+  svg {
+    fill: $body-secondary-color;
+    height: 1em;
+
+    &:hover {
+      fill: $body-color;
+    }
   }
 }
 
