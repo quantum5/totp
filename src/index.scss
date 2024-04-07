@@ -35,6 +35,10 @@ nav {
   }
 }
 
+.totp-settings {
+  margin-bottom: 0.5em;
+}
+
 @include media-breakpoint-up(sm) {
   .totp-app {
     @include make-row();
@@ -49,6 +53,11 @@ nav {
     @include make-col-ready();
     @include make-col($size: 1, $columns: 2);
   }
+}
+
+.totp-action-link {
+  cursor: pointer;
+  user-select: none;
 }
 
 .totp-input, .totp-select {
