@@ -16,7 +16,7 @@ function App() {
 
   const validStep = step > 0;
   const validDigits = digits > 0 && digits <= 10;
-  const valid = validStep && validDigits;
+  const valid = validStep && validDigits && !!secret;
 
   React.useEffect(() => {
     if (!validStep) return;
