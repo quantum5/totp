@@ -1,6 +1,7 @@
 import React from 'react';
 import {HashAlgorithms, HOTP, HOTPOptions} from '@otplib/core';
 import {createDigest} from '@otplib/plugin-crypto-js';
+import classNames from 'classnames';
 
 const ALGORITHMS = {
   sha1: HashAlgorithms.SHA1,
@@ -10,8 +11,13 @@ const ALGORITHMS = {
 
 export type HashAlgorithm = keyof typeof ALGORITHMS;
 
-function OTPCode({code}: { code: string }) {
-  return <div className="totp-code">
+function OTPCode({code, delta}: { code: string; delta: number }) {
+  return <div className={classNames('totp-code', {
+    'totp-older': delta < 0,
+    'totp-newer': delta > 0,
+    'totp-current': delta === 0,
+    'totp-far': Math.abs(delta) > 5,
+  })}>
     {code}
   </div>;
 }
@@ -22,7 +28,7 @@ export default function OTPOutput({secret, offset, algorithm, digits}: {
   algorithm: HashAlgorithm;
   digits: number;
 }) {
-  const hotp = React.useMemo(() => new HOTP<HOTPOptions>({
+  const otp = React.useMemo(() => new HOTP<HOTPOptions>({
     createDigest,
     digits,
     algorithm: ALGORITHMS[algorithm],
@@ -30,8 +36,9 @@ export default function OTPOutput({secret, offset, algorithm, digits}: {
 
   return <div className="totp-output">
     {[...Array(21).keys()].map((i) => {
-      const current = offset + i - 10;
-      return <OTPCode key={current} code={hotp.generate(secret, current)}/>;
+      const delta = i - 10;
+      const current = offset + delta;
+      return <OTPCode key={current} code={otp.generate(secret, current)} delta={delta}/>;
     })}
   </div>;
 }

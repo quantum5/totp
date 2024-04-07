@@ -1,13 +1,41 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React + TS</title>
-  </head>
-  <body>
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="icon" type="image/svg+xml" href="/vite.svg"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TOTP.lol — A TOTP Code Generator for Developers</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg">
+  <div class="container">
+    <a class="navbar-brand" href="#">TOTP.lol</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="#what-is-this">What is this?</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#about">About</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<main class="container">
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <div class="jumbotron">
+    <p class="lead">This is a code generator for the Time-based One Time Password (TOTP) algorithm.</p>
+    <hr>
     <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+  </div>
+</main>
+
+<script type="module" src="/src/main.tsx"></script>
+</body>
 </html>

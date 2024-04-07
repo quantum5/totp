@@ -1,14 +1,76 @@
 @import 'bootstrap/scss/_functions.scss';
 @import 'bootstrap/scss/_variables.scss';
+@import 'bootstrap/scss/_variables-dark.scss';
 @import 'bootstrap/scss/_maps.scss';
 @import 'bootstrap/scss/_mixins.scss';
+@import 'bootstrap/scss/_utilities.scss';
+
 @import 'bootstrap/scss/_root.scss';
+@import 'bootstrap/scss/_reboot.scss';
 @import 'bootstrap/scss/_grid.scss';
+@import 'bootstrap/scss/_containers.scss';
+@import 'bootstrap/scss/_navbar.scss';
+@import 'bootstrap/scss/_nav.scss';
+@import 'bootstrap/scss/_dropdown.scss';
 @import 'bootstrap/scss/_buttons.scss';
 @import 'bootstrap/scss/_forms.scss';
+@import 'bootstrap/scss/_type.scss';
+@import 'bootstrap/scss/_helpers.scss';
+@import 'bootstrap/scss/_transitions.scss';
+
+nav {
+  background-color: $body-tertiary-bg;
+}
+
+.jumbotron {
+  margin: 1em 0;
+  border-radius: 1em;
+  padding: 1em;
+  background-color: $body-secondary-bg;
+}
+
+@include media-breakpoint-up(lg) {
+  .jumbotron {
+    padding: 1.5em;
+  }
+}
+
+@include media-breakpoint-up(sm) {
+  .totp-app {
+    @include make-row();
+  }
+
+  .totp-settings {
+    @include make-col-ready();
+    @include make-col($size: 1, $columns: 2);
+  }
+
+  .totp-output {
+    @include make-col-ready();
+    @include make-col($size: 1, $columns: 2);
+  }
+}
 
 .totp-input, .totp-select {
   label {
     font-weight: $font-weight-bold;
+  }
+
+  margin-bottom: 0.5em;
+}
+
+.totp-code {
+  text-align: center;
+  height: 1.5em;
+  max-height: 1.5em;
+  transition: transform 0.5s linear, max-height 0.5s linear, font-size 0.5s linear;
+
+  &:first-child, &:last-child {
+    max-height: 0;
+    transform: scale(1, 0);
+  }
+
+  &.totp-current {
+    font-size: 2em;
   }
 }

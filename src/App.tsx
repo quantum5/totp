@@ -11,7 +11,7 @@ function App() {
   const [algorithm, setAlgorithm] = React.useState<HashAlgorithm>('sha1');
 
   const validStep = step > 0;
-  const validDigits = digits > 0 && digits < 10;
+  const validDigits = digits > 0 && digits <= 10;
   const valid = validStep && validDigits;
 
   React.useEffect(() => {
