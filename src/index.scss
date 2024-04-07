@@ -4,9 +4,10 @@
 @import 'bootstrap/scss/_mixins.scss';
 @import 'bootstrap/scss/_root.scss';
 @import 'bootstrap/scss/_grid.scss';
+@import 'bootstrap/scss/_buttons.scss';
 @import 'bootstrap/scss/_forms.scss';
 
-.totp-input {
+.totp-input, .totp-select {
   label {
     font-weight: $font-weight-bold;
   }
