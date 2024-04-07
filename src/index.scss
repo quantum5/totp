@@ -83,3 +83,16 @@ nav {
     font-size: 2em;
   }
 }
+
+@include media-breakpoint-down(sm) {
+  .totp-code {
+    &.totp-far {
+      display: none;
+    }
+
+    &.totp-near-first, &.totp-near-last {
+      max-height: 0;
+      transform: scale(1, 0);
+    }
+  }
+}

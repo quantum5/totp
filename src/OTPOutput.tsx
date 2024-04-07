@@ -17,6 +17,8 @@ function OTPCode({code, delta}: { code: string; delta: number }) {
     'totp-newer': delta > 0,
     'totp-current': delta === 0,
     'totp-far': Math.abs(delta) > 5,
+    'totp-near-first': delta === -5,
+    'totp-near-last': delta === 5,
   })}>
     {code}
   </div>;
