@@ -18,6 +18,7 @@
 @import 'bootstrap/scss/_helpers.scss';
 @import 'bootstrap/scss/_transitions.scss';
 @import 'bootstrap/scss/_popover.scss';
+@import 'bootstrap/scss/_card.scss';
 
 nav {
   background-color: $body-tertiary-bg;
@@ -67,6 +68,10 @@ nav {
   }
 
   margin-bottom: 0.5em;
+}
+
+.totp-about .card {
+  margin-top: 0.5em;
 }
 
 .totp-code {
