@@ -4,7 +4,7 @@ import {createDigest} from '@otplib/plugin-crypto-js';
 import classNames from 'classnames';
 import CopyButton from './CopyButton.tsx';
 
-const ALGORITHMS = {
+export const ALGORITHMS = {
   sha1: HashAlgorithms.SHA1,
   sha256: HashAlgorithms.SHA256,
   sha512: HashAlgorithms.SHA512,

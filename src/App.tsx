@@ -3,16 +3,22 @@ import {NumberInput, TextInput} from './Input';
 import OTPOutput, {HashAlgorithm} from './OTPOutput';
 import Select from './Select';
 import Collapsible from './Collapsible';
-import ActionLink from './ActionLink.tsx';
+import ActionLink from './ActionLink';
+import {type State, defaults, serializeState, deserializeState} from './state';
+
+function parseState() {
+  if (window.location.hash.startsWith('#!')) {
+    return deserializeState(window.location.hash.slice(2));
+  }
+  return null;
+}
 
 function App() {
   const [advanced, setAdvanced] = useState(false);
 
-  const [secret, setSecret] = React.useState('');
-  const [step, setStep] = React.useState(30);
+  const [state, setState] = React.useState(() => parseState() || defaults);
+  const {secret, step, digits, algorithm} = state;
   const [offset, setOffset] = React.useState(0);
-  const [digits, setDigits] = React.useState(6);
-  const [algorithm, setAlgorithm] = React.useState<HashAlgorithm>('sha1');
 
   const validStep = step > 0;
   const validDigits = digits > 0 && digits <= 10;
@@ -41,11 +47,46 @@ function App() {
     setAdvanced(false);
   }, []);
 
-  const onReset = React.useCallback(() => {
-    setStep(30);
-    setDigits(6);
-    setAlgorithm('sha1');
+  const setSecret = React.useCallback(
+    (secret: string) => setState((state) => ({...state, secret})),
+    [],
+  );
+
+  const setStep = React.useCallback(
+    (step: number) => setState((state) => ({...state, step})),
+    [],
+  );
+
+  const setDigits = React.useCallback(
+    (digits: number) => setState((state) => ({...state, digits})),
+    [],
+  );
+
+  const setAlgorithm = React.useCallback(
+    (algorithm: string) => setState((state) => ({...state, algorithm})),
+    [],
+  );
+
+  const onReset = React.useCallback(
+    () => setState((state) => ({...state, step: 30, digits: 6, algorithm: 'sha1'})),
+    [],
+  );
+
+  React.useEffect(() => {
+    const value = serializeState(state);
+    console.log(value);
+    history.replaceState(null, '', window.location.pathname + window.location.search + (value && `#!${value}`));
+  }, [state]);
+
+  const onHashChange = React.useCallback(() => {
+    const state = parseState();
+    state && setState(state);
   }, []);
+
+  React.useEffect(() => {
+    window.addEventListener('hashchange', onHashChange);
+    return () => window.removeEventListener('hashchange', onHashChange);
+  }, [onHashChange]);
 
   return (
     <div className="totp-app">
