@@ -1,30 +1,21 @@
-# React + TypeScript + Vite
+# TOTP
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a code generator for the Time-based One Time Password (TOTP) algorithm.
+It's intended for developers of web applications with TOTP support to quickly
+generate codes for testing purposes. It's not meant to be a general purpose
+authenticator app.
 
-Currently, two official plugins are available:
+What this tool can do:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+* Quickly generate TOTP codes;
+* View codes for past and future time windows; and
+* Fiddle with various TOTP parameters.
 
-## Expanding the ESLint configuration
+What this tool can't do:
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+* Store your TOTP secrets (you can try bookmarking the URL with the secret, but
+  it's not secure);
+* Act as your general purpose authenticator app; and
+* Scan TOTP QR codes.
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+![screenshot of the app](screenshot.png)
