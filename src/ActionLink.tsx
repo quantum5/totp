@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {HTMLProps, SyntheticEvent, useCallback} from 'react';
 
-type HTMLAnchorProps = Omit<React.HTMLProps<HTMLAnchorElement>, 'href' | 'onClick'>;
+type HTMLAnchorProps = Omit<HTMLProps<HTMLAnchorElement>, 'href' | 'onClick'>;
 
 export default function ActionLink({onClick, className, ...props}: HTMLAnchorProps & { onClick: () => void }) {
-  const handleClick = React.useCallback((e: React.SyntheticEvent) => {
+  const handleClick = useCallback((e: SyntheticEvent) => {
     e.preventDefault();
     onClick();
   }, [onClick]);

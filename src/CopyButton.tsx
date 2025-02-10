@@ -1,12 +1,12 @@
-import React from 'react';
+import React, {useCallback, useEffect, useId, useState} from 'react';
 import Copy from './copy.svg?react';
 import {Popover} from 'bootstrap';
 
 export default function CopyButton({text}: { text: string }) {
-  const id = React.useId();
-  const [popover, setPopover] = React.useState(false);
+  const id = useId();
+  const [popover, setPopover] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!popover) return;
     const instance = Popover.getOrCreateInstance(`#${id}`, {
       trigger: 'manual',
@@ -20,7 +20,7 @@ export default function CopyButton({text}: { text: string }) {
     }, 1000);
   }, [id, popover]);
 
-  const onCopy = React.useCallback(async () => {
+  const onCopy = useCallback(async () => {
     try {
       await navigator.clipboard.writeText(text);
       setPopover(true);

@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {ReactNode, HTMLProps, useCallback, useId} from 'react';
 import classNames from 'classnames';
 
 type CommonProps = {
-  label: React.ReactNode;
-  error?: React.ReactNode;
+  label: ReactNode;
+  error?: ReactNode;
 };
 
 type TextInputProps = {
@@ -11,12 +11,12 @@ type TextInputProps = {
   onChange: (value: string) => void;
 }
 
-type HTMLInputProps = Omit<React.HTMLProps<HTMLInputElement>, 'onChange' | 'label'>;
+type HTMLInputProps = Omit<HTMLProps<HTMLInputElement>, 'onChange' | 'label'>;
 
 function BaseInput({label, value, onChange, error, ...props}: CommonProps & HTMLInputProps & TextInputProps) {
-  const id = React.useId();
-  const handleChange = React.useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => onChange(e.target.value),
+  const id = useId();
+  const handleChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => onChange(e.target.value),
     [onChange],
   );
 
@@ -38,6 +38,6 @@ export function NumberInput({value, onChange, ...props}: CommonProps & {
   min?: number;
   max?: number;
 }) {
-  const handleChange = React.useCallback((value: string) => onChange(+value), [onChange]);
+  const handleChange = useCallback((value: string) => onChange(+value), [onChange]);
   return <BaseInput type="number" value={`${value}`} onChange={handleChange} {...props}/>;
 }

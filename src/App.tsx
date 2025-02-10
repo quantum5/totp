@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import base32Decode from 'base32-decode';
 import {NumberInput, TextInput} from './Input';
 import OTPOutput from './OTPOutput';
@@ -18,12 +18,12 @@ function parseState() {
 function App() {
   const [advanced, setAdvanced] = useState(false);
 
-  const [state, setState] = React.useState(() => parseState() || defaults);
+  const [state, setState] = useState(() => parseState() || defaults);
   const {secret, step, digits, algorithm} = state;
-  const [offset, setOffset] = React.useState(0);
-  const [remaining, setRemaining] = React.useState(0);
+  const [offset, setOffset] = useState(0);
+  const [remaining, setRemaining] = useState(0);
 
-  const [validSecret, decoded] = React.useMemo(() => {
+  const [validSecret, decoded] = useMemo(() => {
     try {
       return [true, base32Decode(secret.toUpperCase(), 'RFC4648')];
     } catch (e) {
@@ -35,13 +35,13 @@ function App() {
   const validDigits = digits > 0 && digits <= 10;
   const valid = validSecret && validStep && validDigits && !!secret;
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!validStep) return;
     const now = Date.now();
     setOffset(Math.floor(now / (1000 * step)));
   }, [validStep, step]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!validStep) return;
     const now = Date.now();
     const nextUpdate = Math.floor(now / 1000) * 1000 + 1000;
@@ -55,50 +55,50 @@ function App() {
     return () => clearTimeout(timer);
   }, [validStep, step, offset, remaining]);
 
-  const showAdvanced = React.useCallback(() => {
+  const showAdvanced = useCallback(() => {
     setAdvanced(true);
   }, []);
 
-  const hideAdvanced = React.useCallback(() => {
+  const hideAdvanced = useCallback(() => {
     setAdvanced(false);
   }, []);
 
-  const setSecret = React.useCallback(
+  const setSecret = useCallback(
     (secret: string) => setState((state) => ({...state, secret})),
     [],
   );
 
-  const setStep = React.useCallback(
+  const setStep = useCallback(
     (step: number) => setState((state) => ({...state, step})),
     [],
   );
 
-  const setDigits = React.useCallback(
+  const setDigits = useCallback(
     (digits: number) => setState((state) => ({...state, digits})),
     [],
   );
 
-  const setAlgorithm = React.useCallback(
+  const setAlgorithm = useCallback(
     (algorithm: string) => setState((state) => ({...state, algorithm})),
     [],
   );
 
-  const onReset = React.useCallback(
+  const onReset = useCallback(
     () => setState((state) => ({...state, step: 30, digits: 6, algorithm: 'sha1'})),
     [],
   );
 
-  React.useEffect(() => {
+  useEffect(() => {
     const value = serializeState(state);
     history.replaceState(null, '', window.location.pathname + window.location.search + (value && `#!${value}`));
   }, [state]);
 
-  const onHashChange = React.useCallback(() => {
+  const onHashChange = useCallback(() => {
     const state = parseState();
     state && setState(state);
   }, []);
 
-  React.useEffect(() => {
+  useEffect(() => {
     window.addEventListener('hashchange', onHashChange);
     return () => window.removeEventListener('hashchange', onHashChange);
   }, [onHashChange]);

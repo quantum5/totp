@@ -1,14 +1,14 @@
-import React from 'react';
+import React, {ChangeEvent, ReactNode, useCallback, useId} from 'react';
 
 export default function Select<T extends string>({label, options, value, onChange}: {
-  label: React.ReactNode;
+  label: ReactNode;
   options: Record<T, string>;
   value: T;
   onChange: (value: T) => void;
 }) {
-  const id = React.useId();
-  const handleChange = React.useCallback(
-    (e: React.ChangeEvent<HTMLSelectElement>) => onChange(e.target.value as T),
+  const id = useId();
+  const handleChange = useCallback(
+    (e: ChangeEvent<HTMLSelectElement>) => onChange(e.target.value as T),
     [onChange],
   );
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import {HOTP, HOTPOptions} from '@otplib/core';
 import {createDigest} from '@otplib/plugin-crypto-js';
 import classNames from 'classnames';
@@ -25,7 +25,7 @@ export default function OTPOutput({secret, offset, algorithm, digits}: {
   algorithm: HashAlgorithm;
   digits: number;
 }) {
-  const otp = React.useMemo(() => new HOTP<HOTPOptions>({
+  const otp = useMemo(() => new HOTP<HOTPOptions>({
     createDigest,
     digits,
     algorithm: ALGORITHMS[algorithm],
