@@ -5,8 +5,7 @@ import OTPOutput from './OTPOutput';
 import Select from './Select';
 import Collapsible from './Collapsible';
 import ActionLink from './ActionLink';
-import {type State, defaults, serializeState, deserializeState} from './state';
-import {HashAlgorithm} from './algorithms.tsx';
+import {defaults, serializeState, deserializeState} from './state';
 
 function parseState() {
   if (window.location.hash.startsWith('#!')) {
