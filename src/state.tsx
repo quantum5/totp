@@ -1,4 +1,5 @@
-import {ALGORITHMS, HashAlgorithm} from './OTPOutput';
+
+import {ALGORITHMS, HashAlgorithm} from './algorithms.tsx';
 
 export type State = {
   secret: string;

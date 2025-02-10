@@ -1,16 +1,9 @@
 import React from 'react';
-import {HashAlgorithms, HOTP, HOTPOptions} from '@otplib/core';
+import {HOTP, HOTPOptions} from '@otplib/core';
 import {createDigest} from '@otplib/plugin-crypto-js';
 import classNames from 'classnames';
 import CopyButton from './CopyButton.tsx';
-
-export const ALGORITHMS = {
-  sha1: HashAlgorithms.SHA1,
-  sha256: HashAlgorithms.SHA256,
-  sha512: HashAlgorithms.SHA512,
-};
-
-export type HashAlgorithm = keyof typeof ALGORITHMS;
+import {ALGORITHMS, HashAlgorithm} from './algorithms.tsx';
 
 function OTPCode({code, delta}: { code: string; delta: number }) {
   return <div className={classNames('totp-code', {

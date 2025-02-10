@@ -13,6 +13,7 @@
     "@otplib/core": "^12.0.1",
     "@otplib/plugin-crypto-js": "^12.0.1",
     "@popperjs/core": "^2.11.8",
+    "base32-decode": "^1.0.0",
     "bootstrap": "^5.3.3",
     "classnames": "^2.5.1",
     "react": "^18.2.0",

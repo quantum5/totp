@@ -1,10 +1,12 @@
 import React, {useState} from 'react';
+import base32Decode from 'base32-decode';
 import {NumberInput, TextInput} from './Input';
-import OTPOutput, {HashAlgorithm} from './OTPOutput';
+import OTPOutput from './OTPOutput';
 import Select from './Select';
 import Collapsible from './Collapsible';
 import ActionLink from './ActionLink';
 import {type State, defaults, serializeState, deserializeState} from './state';
+import {HashAlgorithm} from './algorithms.tsx';
 
 function parseState() {
   if (window.location.hash.startsWith('#!')) {
@@ -20,9 +22,17 @@ function App() {
   const {secret, step, digits, algorithm} = state;
   const [offset, setOffset] = React.useState(0);
 
+  const [validSecret, decoded] = React.useMemo(() => {
+    try {
+      return [true, base32Decode(secret.toUpperCase(), 'RFC4648')];
+    } catch (e) {
+      return [false, undefined];
+    }
+  }, [secret]);
+
   const validStep = step > 0;
   const validDigits = digits > 0 && digits <= 10;
-  const valid = validStep && validDigits && !!secret;
+  const valid = validSecret && validStep && validDigits && !!secret;
 
   React.useEffect(() => {
     if (!validStep) return;
@@ -74,7 +84,6 @@ function App() {
 
   React.useEffect(() => {
     const value = serializeState(state);
-    console.log(value);
     history.replaceState(null, '', window.location.pathname + window.location.search + (value && `#!${value}`));
   }, [state]);
 
@@ -91,7 +100,8 @@ function App() {
   return (
     <div className="totp-app">
       <div className="totp-settings">
-        <TextInput label="Secret key" value={secret} onChange={setSecret}/>
+        <TextInput label="Secret key" value={secret} onChange={setSecret}
+                   error={!validSecret && 'Secret must be a valid base32-encoded string'}/>
         {advanced ?
           <ActionLink onClick={hideAdvanced}>Hide advanced options</ActionLink> :
           <ActionLink onClick={showAdvanced}>Show advanced options</ActionLink>}
@@ -108,7 +118,7 @@ function App() {
           <button type="button" className="btn btn-secondary" onClick={onReset}>Reset</button>
         </Collapsible>
       </div>
-      {valid && <OTPOutput secret={secret} offset={offset} algorithm={algorithm} digits={digits}/>}
+      {valid && <OTPOutput secret={decoded} offset={offset} algorithm={algorithm} digits={digits}/>}
     </div>
   );
 }
