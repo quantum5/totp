@@ -20,21 +20,23 @@
 @import 'bootstrap/scss/_popover.scss';
 @import 'bootstrap/scss/_card.scss';
 
-nav {
+body {
+  padding-top: $spacer * 4;
+}
+
+nav.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
   background-color: $body-tertiary-bg;
 }
 
 .jumbotron {
-  margin: 1em 0;
-  border-radius: 1em;
-  padding: 1em;
+  border-radius: $border-radius;
+  padding: $spacer;
   background-color: $body-secondary-bg;
-}
-
-@include media-breakpoint-up(lg) {
-  .jumbotron {
-    padding: 1.5em;
-  }
 }
 
 .totp-settings {
@@ -117,5 +119,18 @@ nav {
       max-height: 0;
       transform: scale(1, 0);
     }
+  }
+}
+
+.footer {
+  margin-top: $spacer;
+  background: $body-tertiary-bg;
+  min-height: $spacer * 4;
+  padding: ($spacer * 4 - $font-size-base) / 2 0;
+
+  .container {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 1em;
   }
 }

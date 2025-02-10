@@ -20,7 +20,10 @@
           <a class="nav-link" href="#what-is-this">What is this?</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#about">About</a>
+          <a class="nav-link" href="#how-to-use">How to use?</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#support-me">Support me</a>
         </li>
       </ul>
     </div>
@@ -53,7 +56,9 @@
       </ul>
       <p class="card-text">What this tool <strong>can't</strong> do:</p>
       <ul class="card-text">
-        <li>Store your TOTP secrets (you can try bookmarking this page with the secret in the URL, but it's not secure);</li>
+        <li>Store your TOTP secrets (you can try bookmarking this page with the secret in the URL, but it's not
+          secure);
+        </li>
         <li>Act as your general purpose authenticator app; and</li>
         <li>Scan TOTP QR codes.</li>
       </ul>
@@ -71,9 +76,55 @@
       </p>
       <p class="card-text">The generated codes are displayed in chronological order. The current code is shown in large
         text. The codes above are past codes, and the codes below are future codes.</p>
+      <p class="card-text">The settings are stored in the URL hash. You can bookmark the page or copy the link to go
+        directly to a certain configuration.</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <h3 class="card-title" id="how-to-use">How do I use this tool?</h3>
+      <p class="card-text">To start, simply type or paste in the TOTP secret key. This should be in the standard base32
+        format. This will generate 6-digit TOTP codes that update every 30 seconds using the SHA-1 algorithm that's used
+        by default in all major authenticator apps.
+      </p>
+      <p class="card-text">You can press "show advanced settings" to adjust the TOTP parameters to use non-default
+        values.
+      </p>
+      <p class="card-text">The generated codes are displayed in chronological order. The current code is shown in large
+        text. The codes above are past codes, and the codes below are future codes.</p>
+      <p class="card-text">The settings are stored in the URL hash. You can bookmark the page or copy the link to go
+        directly to a certain configuration.</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <h3 class="card-title" id="support-me">I like this website. How can I support you?</h3>
+      <p class="card-text">
+        For security reasons, this website will <b>NEVER</b> serve ads. Unfortunately, servers and domains are not free,
+        though I try to be as economical as I can. I would rather lose money running this public service than serve
+        ads or shut it down, but if you would like to help me offset the costs, feel free to send some money my way
+        on:
+      </p>
+      <ul>
+        <li><a href="https://github.com/sponsors/quantum5">GitHub Sponsors</a>;</li>
+        <li><a href="https://ko-fi.com/quantum5">Ko-fi</a>;</li>
+        <li><a href="https://liberapay.com/quantum">LiberaPay</a>; or</li>
+        <li><a href="https://donate.stripe.com/6oEcOL8gebjJeuk9AJ">Donate USD by card or bank with Stripe</a> or
+          <a href="https://donate.stripe.com/cN24ifdAy0F53PG7sA">CAD</a>.
+        </li>
+      </ul>
     </div>
   </div>
 </div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="text-muted">Copyright &copy; 2024-__YEAR__ <a href="https://quantum5.ca">Quantum</a>. Licensed under
+      <a href="https://www.gnu.org/licenses/agpl-3.0.en.html">GNU AGPLv3</a>. Source code available on
+      <a href="https://github.com/quantum5/totp">GitHub</a>.
+    </p>
+  </div>
+</footer>
 
 <script type="module" src="/src/main.tsx"></script>
 </body>
