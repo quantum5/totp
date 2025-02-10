@@ -1,4 +1,4 @@
-import React, {ChangeEvent, ReactNode, useCallback, useId} from 'react';
+import {ChangeEvent, ReactNode, useCallback, useId} from 'react';
 
 export default function Select<T extends string>({label, options, value, onChange}: {
   label: ReactNode;

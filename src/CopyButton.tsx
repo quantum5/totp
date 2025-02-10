@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useId, useState} from 'react';
+import {useCallback, useEffect, useId, useState} from 'react';
 import Copy from './copy.svg?react';
 import {Popover} from 'bootstrap';
 

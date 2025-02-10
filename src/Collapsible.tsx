@@ -1,4 +1,4 @@
-import React, {ReactNode, useEffect, useId} from 'react';
+import {ReactNode, useEffect, useId} from 'react';
 import {Collapse} from 'bootstrap';
 
 export default function Collapsible({children, show}: { children: ReactNode; show: boolean }) {

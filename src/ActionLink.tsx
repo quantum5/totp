@@ -1,4 +1,4 @@
-import React, {HTMLProps, SyntheticEvent, useCallback} from 'react';
+import {HTMLProps, SyntheticEvent, useCallback} from 'react';
 
 type HTMLAnchorProps = Omit<HTMLProps<HTMLAnchorElement>, 'href' | 'onClick'>;
 

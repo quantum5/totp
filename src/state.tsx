@@ -1,4 +1,3 @@
-
 import {ALGORITHMS, HashAlgorithm} from './algorithms.tsx';
 
 export type State = {
@@ -16,7 +15,7 @@ export const defaults: State = {
 } as const;
 
 export function serializeState(state: State): string {
-  const values = ['secret', 'step', 'digits', 'algorithm'].map(
+  const values = (['secret', 'step', 'digits', 'algorithm'] as Array<keyof State>).map(
     (key) => state[key] !== defaults[key] ? encodeURIComponent(state[key]) : '',
   );
   while (values[values.length - 1] === '') {
@@ -31,6 +30,6 @@ export function deserializeState(data: string): State {
     secret: values[0] || defaults.secret,
     step: +values[1] || defaults.step,
     digits: +values[2] || defaults.digits,
-    algorithm: ALGORITHMS[values[3]] !== undefined ? values[3] : defaults.algorithm,
+    algorithm: values[3] in ALGORITHMS !== undefined ? values[3] as HashAlgorithm : defaults.algorithm,
   };
 }

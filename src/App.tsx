@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useMemo, useState} from 'react';
+import {useCallback, useEffect, useMemo, useState} from 'react';
 import base32Decode from 'base32-decode';
 import {NumberInput, TextInput} from './Input';
 import OTPOutput from './OTPOutput';
@@ -6,6 +6,7 @@ import Select from './Select';
 import Collapsible from './Collapsible';
 import ActionLink from './ActionLink';
 import {defaults, serializeState, deserializeState} from './state';
+import {HashAlgorithm} from './algorithms.tsx';
 
 function parseState() {
   if (window.location.hash.startsWith('#!')) {
@@ -78,7 +79,7 @@ function App() {
   );
 
   const setAlgorithm = useCallback(
-    (algorithm: string) => setState((state) => ({...state, algorithm})),
+    (algorithm: HashAlgorithm) => setState((state) => ({...state, algorithm})),
     [],
   );
 
@@ -107,7 +108,7 @@ function App() {
       <div className="totp-settings">
         <TextInput label="Secret key" value={secret} onChange={setSecret}
                    error={!validSecret && 'Secret must be a valid base32-encoded string'}/>
-        <progress class="totp-tick" value={validStep ? remaining : 0} max={validStep ? step : 0}/>
+        <progress className="totp-tick" value={validStep ? remaining : 0} max={validStep ? step : 0}/>
         {advanced ?
           <ActionLink onClick={hideAdvanced}>Hide advanced options</ActionLink> :
           <ActionLink onClick={showAdvanced}>Show advanced options</ActionLink>}
@@ -124,7 +125,7 @@ function App() {
           <button type="button" className="btn btn-secondary" onClick={onReset}>Reset</button>
         </Collapsible>
       </div>
-      {valid && <OTPOutput secret={decoded} offset={offset} algorithm={algorithm} digits={digits}/>}
+      {valid && decoded && <OTPOutput secret={decoded} offset={offset} algorithm={algorithm} digits={digits}/>}
     </div>
   );
 }

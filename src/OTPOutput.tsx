@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react';
+import {useMemo} from 'react';
 import {HOTP, HOTPOptions} from '@otplib/core';
 import {createDigest} from '@otplib/plugin-crypto-js';
 import classNames from 'classnames';
@@ -20,7 +20,7 @@ function OTPCode({code, delta}: { code: string; delta: number }) {
 }
 
 export default function OTPOutput({secret, offset, algorithm, digits}: {
-  secret: string;
+  secret: ArrayBuffer;
   offset: number;
   algorithm: HashAlgorithm;
   digits: number;
@@ -35,7 +35,12 @@ export default function OTPOutput({secret, offset, algorithm, digits}: {
     {[...Array(21).keys()].map((i) => {
       const delta = i - 10;
       const current = offset + delta;
-      return <OTPCode key={current} code={otp.generate(secret, current)} delta={delta}/>;
+      return <OTPCode key={current} code={otp.generate(
+        // they really wanted an ArrayBuffer or some similar binary type
+        // but misdeclared the type
+        secret as unknown as string,
+        current,
+      )} delta={delta}/>;
     })}
   </div>;
 }

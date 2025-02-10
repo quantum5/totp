@@ -1,4 +1,4 @@
-import React, {ReactNode, HTMLProps, useCallback, useId} from 'react';
+import {ChangeEvent, ReactNode, HTMLProps, useCallback, useId} from 'react';
 import classNames from 'classnames';
 
 type CommonProps = {
