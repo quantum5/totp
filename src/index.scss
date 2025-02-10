@@ -122,6 +122,10 @@ nav.navbar {
   }
 }
 
+h3.card-title {
+  scroll-margin-top: $spacer * 5;
+}
+
 .footer {
   margin-top: $spacer;
   background: $body-tertiary-bg;
