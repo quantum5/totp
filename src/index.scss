@@ -109,6 +109,11 @@ nav.navbar {
   }
 }
 
+progress.totp-tick {
+  display: block;
+  width: 100%;
+}
+
 @include media-breakpoint-down(sm) {
   .totp-code {
     &.totp-far {

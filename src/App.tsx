@@ -21,6 +21,7 @@ function App() {
   const [state, setState] = React.useState(() => parseState() || defaults);
   const {secret, step, digits, algorithm} = state;
   const [offset, setOffset] = React.useState(0);
+  const [remaining, setRemaining] = React.useState(0);
 
   const [validSecret, decoded] = React.useMemo(() => {
     try {
@@ -43,11 +44,16 @@ function App() {
   React.useEffect(() => {
     if (!validStep) return;
     const now = Date.now();
-    const nextOffset = Math.floor(now / (1000 * step)) + 1;
-    const nextUpdate = nextOffset * step * 1000;
-    const timer = setTimeout(() => setOffset(nextOffset), nextUpdate - now);
+    const nextUpdate = Math.floor(now / 1000) * 1000 + 1000;
+    const timer = setTimeout(() => {
+      const now = Date.now();
+      const offset = Math.floor(now / (1000 * step));
+      const nextUpdate = (offset + 1) * step * 1000;
+      setRemaining((nextUpdate - now) / 1000);
+      setOffset(offset);
+    }, nextUpdate - now);
     return () => clearTimeout(timer);
-  }, [validStep, offset, step]);
+  }, [validStep, step, offset, remaining]);
 
   const showAdvanced = React.useCallback(() => {
     setAdvanced(true);
@@ -102,6 +108,7 @@ function App() {
       <div className="totp-settings">
         <TextInput label="Secret key" value={secret} onChange={setSecret}
                    error={!validSecret && 'Secret must be a valid base32-encoded string'}/>
+        <progress class="totp-tick" value={validStep ? remaining : 0} max={validStep ? step : 0}/>
         {advanced ?
           <ActionLink onClick={hideAdvanced}>Hide advanced options</ActionLink> :
           <ActionLink onClick={showAdvanced}>Show advanced options</ActionLink>}
