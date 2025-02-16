@@ -124,9 +124,35 @@
           and finally
         </li>
         <li>Compute the code as <img class="math" src="math/mod.svg" alt="y \bmod{10^d}" height="18"
-                                     style="vertical-align: -3px">.
+                                     style="vertical-align: -3px">, zero-padded to <var>d</var> digits.
         </li>
       </ol>
+      <p class="card-text">Express as Python code, the last 3 steps would look like:</p>
+      <pre class="highlight"><code><span class="n">i</span> <span class="o">=</span> <span class="n">h</span><span
+        class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">&amp;</span> <span
+        class="mh">0xF</span>
+<span class="n">y</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="p">(</span><span class="n">h</span><span class="p">[</span><span class="n">i</span> <span
+          class="o">+</span> <span class="mi">0</span><span class="p">]</span> <span class="o">&amp;</span> <span
+          class="mh">0x7F</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span
+          class="mi">24</span> <span class="o">|</span>
+    <span class="p">(</span><span class="n">h</span><span class="p">[</span><span class="n">i</span> <span
+          class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">&amp;</span> <span
+          class="mh">0xFF</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span
+          class="mi">16</span> <span class="o">|</span>
+    <span class="p">(</span><span class="n">h</span><span class="p">[</span><span class="n">i</span> <span
+          class="o">+</span> <span class="mi">2</span><span class="p">]</span> <span class="o">&amp;</span> <span
+          class="mh">0xFF</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="mi">8</span> <span
+          class="o">|</span>
+    <span class="p">(</span><span class="n">h</span><span class="p">[</span><span class="n">i</span> <span
+          class="o">+</span> <span class="mi">3</span><span class="p">]</span> <span class="o">&amp;</span> <span
+          class="mh">0xFF</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">code</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">y</span> <span
+          class="o">%</span> <span class="mi">10</span><span class="o">**</span><span class="n">d</span><span class="p">)</span><span
+          class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span
+          class="s1">'0'</span><span class="p">)</span>
+</code></pre>
       <p class="card-text">To avoid clock synchronization issues, most implementations will accept TOTP codes from the
         window before and after the one based on the current time. This tool lets you see the previous and next codes to
         help you debug.</p>

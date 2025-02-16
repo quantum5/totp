@@ -20,6 +20,8 @@
 @import 'bootstrap/scss/_popover.scss';
 @import 'bootstrap/scss/_card.scss';
 
+@import './code';
+
 body {
   padding-top: $spacer * 4;
 }
@@ -129,6 +131,12 @@ progress.totp-tick {
 
 h3.card-title {
   scroll-margin-top: $spacer * 5;
+}
+
+pre.highlight {
+  display: block;
+  padding: $spacer;
+  border-radius: $border-radius;
 }
 
 .footer {
