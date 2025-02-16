@@ -30,6 +30,6 @@ export function deserializeState(data: string): State {
     secret: values[0] || defaults.secret,
     step: +values[1] || defaults.step,
     digits: +values[2] || defaults.digits,
-    algorithm: values[3] in ALGORITHMS !== undefined ? values[3] as HashAlgorithm : defaults.algorithm,
+    algorithm: values[3] in ALGORITHMS ? values[3] as HashAlgorithm : defaults.algorithm,
   };
 }
