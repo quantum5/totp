@@ -6,15 +6,15 @@
   <link rel="icon" type="image/svg+xml" href="/totp.svg"/>
   <link rel="shortcut icon" href="/favicon.ico"/>
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>
-  <meta name="apple-mobile-web-app-title" content="TOTP.lol"/>
+  <meta name="apple-mobile-web-app-title" content="TOTP.fyi"/>
   <link rel="manifest" href="/site.webmanifest"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>TOTP.lol — A TOTP Code Generator for Developers</title>
+  <title>TOTP.fyi — A TOTP Code Generator for Developers</title>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg">
   <div class="container">
-    <a class="navbar-brand" href="#">TOTP.lol</a>
+    <a class="navbar-brand" href="#">TOTP.fyi</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -26,6 +26,9 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#how-to-use">How to use?</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#how-does-it-work">How does it work?</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#support-me">Support me</a>
@@ -83,6 +86,50 @@
         text. The codes above are past codes, and the codes below are future codes.</p>
       <p class="card-text">The settings are stored in the URL hash. You can bookmark the page or copy the link to go
         directly to a certain configuration.</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <h3 class="card-title" id="how-does-it-work">How does TOTP work?</h3>
+      <p class="card-text">Time-based one-time password (TOTP), defined in <a
+        href="https://datatracker.ietf.org/doc/html/rfc6238">RFC 6238</a>, is based on the HMAC-based one-time password
+        (HOTP) algorithm, which uses the common HMAC construction based on the current time. TOTP requires the following
+        inputs:
+      </p>
+      <ul class="card-text">
+        <li>The cryptographic hash function <var>H</var>, which defaults to SHA-1. This is configurable in the advanced
+          settings;
+        </li>
+        <li>The secret key <var>K</var>, which is commonly encoded as Base32. This value, encoded in Base32, is what you
+          enter into the <strong>secret key</strong> field;
+        </li>
+        <li>The time window <var>X</var>, which is how long each code is valid for;</li>
+        <li>The epoch <var>T<sub>0</sub></var>, which is the Unix epoch (0 in Unix time) in every known implementation,
+          but could be changed; and
+        </li>
+        <li>The number of digits <var>d</var>, which is the length of the final output code in decimal digits.</li>
+      </ul>
+      <p class="card-text">The algorithm is as follows:</p>
+      <ol class="card-text">
+        <li>Take the current unix time <var>U</var>;</li>
+        <li>Compute the time step count
+          <img class="math" src="math/t.svg" alt="T=\left\lfloor\frac{U - T_0}{X}\right\rfloor" height="40">;
+        </li>
+        <li>Compute the HMAC <img class="math" src="math/h.svg" alt="h = \text{HMAC}_H(K, T)" height="18">;</li>
+        <li>Extract the 4 lowest order bits, i.e. the 4 least significant bits from the last byte of <var>h</var>, to
+          create the integer <var>i</var>;
+        </li>
+        <li>Take four bytes from <var>h</var> starting at <var>i</var>, i.e. bytes [<var>i</var>, <var>i</var>+4), mask
+          off the most significant bit (to support signed arithmetic), and use it to create the integer <var>y</var>;
+          and finally
+        </li>
+        <li>Compute the code as <img class="math" src="math/mod.svg" alt="y \bmod{10^d}" height="18"
+                                     style="vertical-align: -3px">.
+        </li>
+      </ol>
+      <p class="card-text">To avoid clock synchronization issues, most implementations will accept TOTP codes from the
+        window before and after the one based on the current time. This tool lets you see the previous and next codes to
+        help you debug.</p>
     </div>
   </div>
   <div class="card">
